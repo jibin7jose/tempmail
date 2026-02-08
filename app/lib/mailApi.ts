@@ -83,22 +83,28 @@ export const mailApi = {
     const res = await fetch(`${BASE_URL}/messages`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.ok) {
+      if (res.status === 401) throw new Error('UNAUTHORIZED');
+      throw new Error('Failed to fetch messages');
+    }
     const data = await res.json();
-    return data['hydra:member'];
+    return data['hydra:member'] || [];
   },
 
   async getMessage(id: string, token: string): Promise<MessageDetail> {
     const res = await fetch(`${BASE_URL}/messages/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.ok) throw new Error('Failed to fetch message detail');
     return res.json();
   },
 
   async deleteMessage(id: string, token: string): Promise<void> {
-    await fetch(`${BASE_URL}/messages/${id}`, {
+    const res = await fetch(`${BASE_URL}/messages/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.ok) throw new Error('Failed to delete message');
   },
 
   async deleteAccount(id: string, token: string): Promise<void> {

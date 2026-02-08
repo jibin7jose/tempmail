@@ -15,8 +15,11 @@ export function useMailbox() {
         setError(null);
         try {
             const domains = await mailApi.getDomains();
-            const domain = domains[0]?.domain;
-            if (!domain) throw new Error('No domains available');
+            const activeDomains = domains.filter(d => d.isActive);
+            if (activeDomains.length === 0) throw new Error('No active domains available');
+
+            // Pick a random domain for better reliability
+            const domain = activeDomains[Math.floor(Math.random() * activeDomains.length)].domain;
 
             const username = Math.random().toString(36).substring(2, 10);
             const password = Math.random().toString(36).substring(2, 15);
@@ -44,27 +47,42 @@ export function useMailbox() {
         try {
             const msgs = await mailApi.getMessages(token);
             setMessages(msgs);
-        } catch (err) {
+            setError(null);
+        } catch (err: any) {
             console.error('Failed to refresh messages:', err);
+            if (err.message === 'UNAUTHORIZED') {
+                localStorage.removeItem('tempmail_session');
+                createNewAccount();
+            } else {
+                setError('Connection lost. Retrying...');
+            }
         }
-    }, [token]);
+    }, [token, createNewAccount]);
 
     useEffect(() => {
-        const saved = localStorage.getItem('tempmail_session');
-        if (saved) {
-            const { account, token } = JSON.parse(saved);
-            setAccount(account);
-            setToken(token);
-            setIsLoading(false);
-        } else {
-            createNewAccount();
-        }
+        const checkSession = async () => {
+            const saved = localStorage.getItem('tempmail_session');
+            if (saved) {
+                try {
+                    const session = JSON.parse(saved);
+                    setAccount(session.account);
+                    setToken(session.token);
+                    setIsLoading(false);
+                } catch (e) {
+                    localStorage.removeItem('tempmail_session');
+                    createNewAccount();
+                }
+            } else {
+                createNewAccount();
+            }
+        };
+        checkSession();
     }, [createNewAccount]);
 
     useEffect(() => {
         if (token) {
             refreshMessages();
-            const interval = setInterval(refreshMessages, 10000);
+            const interval = setInterval(refreshMessages, 5000);
             return () => clearInterval(interval);
         }
     }, [token, refreshMessages]);

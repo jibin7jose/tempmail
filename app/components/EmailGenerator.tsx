@@ -85,6 +85,25 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
                     <Badge Icon={Globe} text="Use Everywhere" />
                     <Badge Icon={ArrowRight} text="No Password Needed" />
                 </div>
+
+                <div style={{
+                    marginTop: '2rem',
+                    padding: '1.25rem 2rem',
+                    background: 'rgba(244, 63, 94, 0.05)',
+                    border: '1px dashed rgba(244, 63, 94, 0.2)',
+                    borderRadius: '16px',
+                    maxWidth: '600px'
+                }}>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--accent)', fontWeight: '700', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                        <Shield size={14} />
+                        PRO TIP: SIGNUP VS SIGNIN
+                    </p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
+                        Major services (Google, Facebook, etc.) often block disposable domains to prevent spam.
+                        <strong> If you are trying to create a new account, use "Create Account" instead of "Sign In".</strong>
+                        If a specific domain is blocked, try clicking the refresh icon to get a new domain!
+                    </p>
+                </div>
             </div>
         </div>
     );
