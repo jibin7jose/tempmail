@@ -7,7 +7,7 @@ import Header from './components/Header';
 import EmailGenerator from './components/EmailGenerator';
 import InboxSection from './components/InboxSection';
 import Features from './components/Features';
-import { Mail, GitHub, Twitter } from 'lucide-react';
+import { Mail, Github } from 'lucide-react';
 
 export default function Home() {
   const { account, messages, isLoading, error, createNewAccount, refreshMessages, token } = useMailbox();
