@@ -7,64 +7,102 @@ import Header from './components/Header';
 import EmailGenerator from './components/EmailGenerator';
 import InboxSection from './components/InboxSection';
 import Features from './components/Features';
+import { Mail, GitHub, Twitter } from 'lucide-react';
 
 export default function Home() {
   const { account, messages, isLoading, error, createNewAccount, refreshMessages, token } = useMailbox();
   const [selectedMessage, setSelectedMessage] = useState<MessageDetail | null>(null);
-  const [loadingMsg, setLoadingMsg] = useState(false);
 
   const handleMessageClick = async (id: string) => {
     if (!token) return;
-    setLoadingMsg(true);
     try {
       const detail = await mailApi.getMessage(id, token);
       setSelectedMessage(detail);
     } catch (err) {
       console.error('Failed to load message:', err);
-    } finally {
-      setLoadingMsg(false);
     }
   };
 
   return (
-    <main className="premium-container" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
-      <Header />
+    <>
+      <div className="mesh-bg"></div>
+      <main className="container" style={{ paddingBottom: '6rem' }}>
+        <Header />
 
-      {error && (
-        <div style={{
-          background: 'rgba(239, 68, 68, 0.1)',
-          border: '1px solid rgba(239, 68, 68, 0.2)',
-          color: '#ef4444',
-          padding: '1rem',
-          borderRadius: '12px',
-          marginBottom: '2rem',
-          textAlign: 'center'
+        {error && (
+          <div className="animate-slide-down" style={{
+            background: '#FEE2E2',
+            border: '2px solid #FCA5A5',
+            color: '#B91C1C',
+            padding: '1rem 1.5rem',
+            borderRadius: '16px',
+            marginBottom: '3rem',
+            fontSize: '0.95rem',
+            fontWeight: '600',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
+
+        <EmailGenerator
+          address={account?.address || ''}
+          isLoading={isLoading}
+          onRefresh={createNewAccount}
+        />
+
+        <InboxSection
+          messages={messages}
+          selectedId={selectedMessage?.id}
+          onMessageSelect={handleMessageClick}
+          onRefresh={refreshMessages}
+          selectedMessage={selectedMessage}
+          onCloseMessage={() => setSelectedMessage(null)}
+        />
+
+        <Features />
+
+        <footer style={{
+          marginTop: '8rem',
+          padding: '4rem 0',
+          borderTop: '1px solid var(--border)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2rem'
         }}>
-          {error}
-        </div>
-      )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <div style={{ background: 'var(--primary)', padding: '0.4rem', borderRadius: '10px' }}>
+              <Mail size={20} color="white" />
+            </div>
+            <span style={{ fontWeight: '800', fontSize: '1.25rem' }}>TempMailo</span>
+          </div>
 
-      <EmailGenerator
-        address={account?.address || ''}
-        isLoading={isLoading}
-        onRefresh={createNewAccount}
-      />
+          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: '500', textAlign: 'center', maxWidth: '500px' }}>
+            A premium temporary email solution for modern developers and privacy advocates.
+          </p>
 
-      <InboxSection
-        messages={messages}
-        selectedId={selectedMessage?.id}
-        onMessageSelect={handleMessageClick}
-        onRefresh={refreshMessages}
-        selectedMessage={selectedMessage}
-        onCloseMessage={() => setSelectedMessage(null)}
-      />
+          <div style={{ display: 'flex', gap: '2rem' }}>
+            <a href="#" style={{ color: 'var(--text-muted)', fontWeight: '600' }}>GitHub</a>
+            <a href="#" style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Documentation</a>
+            <a href="#" style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Privacy</a>
+          </div>
 
-      <Features />
-
-      <footer style={{ borderTop: '1px solid var(--glass-border)', padding: '3rem 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '4rem' }}>
-        <p>&copy; {new Date().getFullYear()} TempMailo. Designed with ✨ for modern developers.</p>
-        <p style={{ marginTop: '0.5rem', opacity: 0.6 }}>Using Mail.tm Infrastructure</p>
-      </footer>
-    </main>
+          <div style={{
+            marginTop: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '0.5rem',
+            color: 'var(--text-muted)',
+            fontSize: '0.9rem',
+            fontWeight: '600'
+          }}>
+            <p>&copy; {new Date().getFullYear()} TempMailo Engineering</p>
+            <p style={{ fontSize: '0.8rem', color: 'var(--primary)' }}>Designed & Built by Jibin Jose</p>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 }

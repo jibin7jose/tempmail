@@ -1,6 +1,6 @@
 'use client';
 
-import { Copy, RefreshCw, Check, Shield, Zap, Globe } from 'lucide-react';
+import { Copy, RefreshCw, Check, Shield, Zap, Globe, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
 interface EmailGeneratorProps {
@@ -19,66 +19,82 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
     };
 
     return (
-        <section className="glass-card" style={{ maxWidth: '800px', margin: '0 auto 4rem', textAlign: 'center' }}>
-            <div style={{ marginBottom: '2rem' }}>
-                <span style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                    Your Temporary Address
-                </span>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+        <div className="figma-card animate-slide-up" style={{ padding: '3rem', marginBottom: '6rem', background: 'linear-gradient(135deg, var(--surface) 0%, var(--primary-soft) 100%)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '2rem' }}>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', padding: '0.6rem 1.2rem', borderRadius: '100px', fontSize: '0.85rem', fontWeight: '700', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
+                    <Zap size={16} fill="var(--primary)" />
+                    <span>INSTANT GENERATION READY</span>
+                </div>
+
+                <div style={{ width: '100%', maxWidth: '700px' }}>
                     <div style={{
-                        background: 'var(--background)',
-                        color: 'var(--foreground)',
-                        padding: '1rem 1.5rem',
-                        borderRadius: '16px',
-                        fontSize: '1.25rem',
-                        fontWeight: '500',
-                        border: '1px solid var(--glass-border)',
-                        flex: '1',
-                        minWidth: '280px',
-                        maxWidth: '500px',
-                        fontFamily: 'monospace',
+                        background: 'var(--surface)',
+                        border: '2px solid var(--border)',
+                        borderRadius: '24px',
+                        padding: '1rem',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
+                        gap: '1rem',
+                        boxShadow: 'var(--shadow-lg)'
                     }}>
-                        {isLoading ? <div className="animate-pulse">Generating address...</div> : address}
-                    </div>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <button
-                            onClick={copyToClipboard}
-                            className="btn-primary"
-                            style={{ padding: '1rem' }}
-                            title="Copy to clipboard"
-                        >
-                            {copying ? <Check size={20} /> : <Copy size={20} />}
-                        </button>
-                        <button
-                            onClick={onRefresh}
-                            className="btn-primary"
-                            style={{ padding: '1rem', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
-                            title="New Address"
-                        >
-                            <RefreshCw size={20} className={isLoading ? 'animate-spin' : ''} />
-                        </button>
+                        <div style={{
+                            background: 'var(--primary-soft)',
+                            color: 'var(--primary)',
+                            padding: '0.8rem 1.2rem',
+                            borderRadius: '16px',
+                            fontFamily: 'monospace',
+                            fontSize: '1.25rem',
+                            fontWeight: '700',
+                            flex: 1,
+                            textAlign: 'center',
+                            letterSpacing: '0.05em'
+                        }}>
+                            {isLoading ? '...' : address}
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button onClick={onRefresh} style={{
+                                width: '56px',
+                                height: '56px',
+                                borderRadius: '16px',
+                                background: 'var(--bg)',
+                                border: '1px solid var(--border)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'var(--text-muted)'
+                            }}>
+                                <RefreshCw size={24} className={isLoading ? 'animate-spin' : ''} />
+                            </button>
+
+                            <button
+                                onClick={copyToClipboard}
+                                className="btn-figma btn-figma-primary"
+                                style={{ height: '56px', padding: '0 2rem' }}
+                            >
+                                {copying ? <Check size={20} /> : <Copy size={20} />}
+                                <span>{copying ? 'Copied' : 'Copy Address'}</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginTop: '3rem' }}>
-                <FeatureSmall Icon={Shield} text="Privacy Protected" color="var(--primary)" />
-                <FeatureSmall Icon={Zap} text="Instant Setup" color="var(--secondary)" />
-                <FeatureSmall Icon={Globe} text="Global Access" color="var(--accent)" />
+                <div style={{ display: 'flex', gap: '3rem', marginTop: '1rem' }}>
+                    <Badge Icon={Shield} text="Privacy Protected" />
+                    <Badge Icon={Globe} text="Use Everywhere" />
+                    <Badge Icon={ArrowRight} text="No Password Needed" />
+                </div>
             </div>
-        </section>
+        </div>
     );
 }
 
-function FeatureSmall({ Icon, text, color }: { Icon: any, text: string, color: string }) {
+function Badge({ Icon, text }: { Icon: any, text: string }) {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Icon size={24} color={color} />
-            <span style={{ fontSize: '0.85rem', fontWeight: '500' }}>{text}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600' }}>
+            <Icon size={18} color="var(--primary)" />
+            <span>{text}</span>
         </div>
     );
 }

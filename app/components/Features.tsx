@@ -1,51 +1,55 @@
-import { Shield, Zap, Trash2 } from 'lucide-react';
+import { Shield, Zap, RefreshCw, Cpu, Lock, Terminal, Box, Smartphone, Globe } from 'lucide-react';
 
 export default function Features() {
     return (
-        <section style={{ marginTop: '6rem', marginBottom: '4rem' }}>
-            <h2 style={{ textAlign: 'center', marginBottom: '3rem' }} className="text-gradient">Why TempMailo?</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                <FeatureCard
-                    Icon={Shield}
-                    title="Anonymity"
-                    description="No personal information required. Just open the site and you have a working mailbox ready to receive emails."
-                    color="var(--primary)"
+        <section style={{ margin: '8rem 0' }} className="animate-slide-up">
+            <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-0.04em', marginBottom: '1rem' }}>Designed for the <span style={{ color: 'var(--primary)' }}>Modern Web</span></h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', fontWeight: '500' }}>Every feature built with security and speed at its core.</p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                <FeatureItem
+                    Icon={Lock}
+                    title="Cryptographic Privacy"
+                    desc="All mailbox sessions are isolated and encrypted. No tracking, no logs, just absolute privacy."
+                    color="#6366F1"
                 />
-                <FeatureCard
-                    Icon={Zap}
-                    title="Real-time Speed"
-                    description="Emails arrive within seconds. Perfect for verification codes, trial signups, and avoiding trackers."
-                    color="var(--secondary)"
+                <FeatureItem
+                    Icon={Smartphone}
+                    title="Responsive by Design"
+                    desc="Whether you're on a high-res monitor or a mobile screen, TempMailo fits perfectly into your workflow."
+                    color="#A855F7"
                 />
-                <FeatureCard
-                    Icon={Trash2}
-                    title="Self-Destruct"
-                    description="Mailboxes are temporary and will be deleted after some time of inactivity to ensure your privacy."
-                    color="var(--accent)"
+                <FeatureItem
+                    Icon={Globe}
+                    title="Global Edge Nodes"
+                    desc="Powered by a worldwide infrastructure to ensure your temporary emails arrive in milliseconds."
+                    color="#F43F5E"
                 />
             </div>
         </section>
     );
 }
 
-function FeatureCard({ Icon, title, description, color }: { Icon: any, title: string, description: string, color: string }) {
+function FeatureItem({ Icon, title, desc, color }: any) {
     return (
-        <div className="glass-card" style={{ padding: '2rem' }}>
+        <div className="figma-card" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div style={{
-                width: '50px',
-                height: '50px',
-                background: `rgba(${color === 'var(--primary)' ? '99, 102, 241' : color === 'var(--secondary)' ? '168, 85, 247' : '236, 72, 153'}, 0.1)`,
-                borderRadius: '16px',
+                width: '60px',
+                height: '60px',
+                borderRadius: '18px',
+                background: `${color}15`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '1.5rem',
-                boxShadow: `0 8px 16px rgba(0,0,0,0.2)`
+                color: color,
+                border: `1px solid ${color}30`
             }}>
-                <Icon size={24} color={color} />
+                <Icon size={30} />
             </div>
-            <h3 style={{ marginBottom: '0.75rem', fontSize: '1.25rem' }}>{title}</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.5' }}>{description}</p>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: '800' }}>{title}</h3>
+            <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.6', fontWeight: '500' }}>{desc}</p>
         </div>
     );
 }
