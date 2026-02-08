@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   keywords: "temporary email, disposable email, temp mail, private email, spam protection",
 };
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={outfit.className}>
-        <div className="bg-glow"></div>
-        {children}
+        <ThemeProvider>
+          <div className="bg-glow"></div>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,15 +1,34 @@
 :root {
-  --background: #050505;
-  --foreground: #ffffff;
+  /* Common */
   --primary: #6366f1;
   --primary-glow: rgba(99, 102, 241, 0.3);
   --secondary: #a855f7;
   --accent: #ec4899;
+
+  /* Dark Theme (Default) */
+  --background: #050505;
+  --foreground: #ffffff;
   --surface: #121212;
   --surface-border: #222222;
   --text-muted: #94a3b8;
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --bg-glow-1: rgba(99, 102, 241, 0.15);
+  --bg-glow-2: rgba(168, 85, 247, 0.1);
+  --msg-hover: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-border: #e2e8f0;
+  --text-muted: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(99, 102, 241, 0.1);
+  --bg-glow-1: rgba(99, 102, 241, 0.08);
+  --bg-glow-2: rgba(168, 85, 247, 0.05);
+  --msg-hover: rgba(99, 102, 241, 0.04);
 }
 
 * {
@@ -24,8 +43,9 @@ body {
   overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: inherit;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -53,18 +73,18 @@ button {
   }
 }
 
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px var(--primary-glow);
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
 
-  50% {
-    box-shadow: 0 0 20px var(--primary-glow);
+  to {
+    transform: rotate(360deg);
   }
+}
 
-  100% {
-    box-shadow: 0 0 5px var(--primary-glow);
-  }
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .premium-container {
@@ -81,11 +101,13 @@ button {
   border-radius: 24px;
   padding: 2rem;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
+  background: var(--glass-bg);
+  transform: translateY(-2px);
 }
 
 .btn-primary {
@@ -98,6 +120,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  box-shadow: 0 4px 15px var(--primary-glow);
 }
 
 .btn-primary:hover {
@@ -110,7 +133,7 @@ button {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  background: linear-gradient(135deg, var(--foreground) 0%, var(--text-muted) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -123,7 +146,90 @@ button {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%),
-    radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.1), transparent 50%);
+  background: radial-gradient(circle at 50% 0%, var(--bg-glow-1), transparent 50%),
+    radial-gradient(circle at 100% 100%, var(--bg-glow-2), transparent 50%);
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .premium-container {
+    padding: 1rem;
+  }
+
+  .glass-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  header {
+    margin-bottom: 2rem !important;
+  }
+
+  header h1 {
+    font-size: 2rem !important;
+  }
+
+  .inbox-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.msg-item {
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.msg-item:hover {
+  background: var(--msg-hover) !important;
+  border-color: var(--glass-border) !important;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle .icon {
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle .ball {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+[data-theme='light'] .theme-toggle .ball {
+  transform: translateX(28px);
 }
