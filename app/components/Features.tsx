@@ -2,13 +2,13 @@ import { Shield, Zap, RefreshCw, Cpu, Lock, Terminal, Box, Smartphone, Globe } f
 
 export default function Features() {
     return (
-        <section style={{ margin: '8rem 0' }} className="animate-slide-up">
-            <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-0.04em', marginBottom: '1rem' }}>Designed for the <span style={{ color: 'var(--primary)' }}>Modern Web</span></h2>
+        <section className="animate-slide-up features-section" style={{ margin: '8rem 0' }}>
+            <div className="feature-header" style={{ textAlign: 'center', marginBottom: '5rem' }}>
+                <h2 className="feature-title-main" style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-0.04em', marginBottom: '1rem' }}>Designed for the <span style={{ color: 'var(--primary)' }}>Modern Web</span></h2>
                 <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', fontWeight: '500' }}>Every feature built with security and speed at its core.</p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            <div className="features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                 <FeatureItem
                     Icon={Lock}
                     title="Cryptographic Privacy"
@@ -34,7 +34,7 @@ export default function Features() {
 
 function FeatureItem({ Icon, title, desc, color }: any) {
     return (
-        <div className="figma-card" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div className="figma-card feature-card" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div style={{
                 width: '60px',
                 height: '60px',

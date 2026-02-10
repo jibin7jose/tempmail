@@ -21,9 +21,9 @@ export default function InboxSection({
     onCloseMessage
 }: InboxSectionProps) {
     return (
-        <div className="figma-card animate-slide-up" style={{ padding: '0', overflow: 'hidden', display: 'flex', minHeight: '650px' }}>
+        <div className="figma-card animate-slide-up inbox-card-responsive" style={{ padding: '0', overflow: 'hidden', display: 'flex', minHeight: '650px' }}>
             {/* Sidebar */}
-            <div style={{ width: '380px', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
+            <div className="inbox-sidebar-responsive" style={{ width: '380px', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
                 <div style={{ padding: '2rem', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                         <div style={{ width: '10px', height: '10px', background: '#22C55E', borderRadius: '50%', boxShadow: '0 0 10px #22C55E' }}></div>
@@ -79,7 +79,7 @@ export default function InboxSection({
             </div>
 
             {/* Content */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div className="inbox-content-responsive" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 {selectedMessage ? (
                     <>
                         <div style={{ padding: '2.5rem', borderBottom: '1px solid var(--border)' }}>
@@ -134,7 +134,7 @@ export default function InboxSection({
                         </div>
                     </>
                 ) : (
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem', textAlign: 'center' }}>
+                    <div className="inbox-empty-state" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem', textAlign: 'center' }}>
                         <div style={{
                             width: '80px',
                             height: '80px',

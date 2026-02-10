@@ -19,7 +19,7 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
     };
 
     return (
-        <div className="figma-card animate-slide-up" style={{ padding: '3rem', marginBottom: '6rem', background: 'linear-gradient(135deg, var(--surface) 0%, var(--primary-soft) 100%)' }}>
+        <div className="figma-card animate-slide-up generator-card" style={{ padding: '3rem', marginBottom: '6rem', background: 'linear-gradient(135deg, var(--surface) 0%, var(--primary-soft) 100%)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '2rem' }}>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', padding: '0.6rem 1.2rem', borderRadius: '100px', fontSize: '0.85rem', fontWeight: '700', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
@@ -28,7 +28,7 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
                 </div>
 
                 <div style={{ width: '100%', maxWidth: '700px' }}>
-                    <div style={{
+                    <div className="address-container-box" style={{
                         background: 'var(--surface)',
                         border: '2px solid var(--border)',
                         borderRadius: '24px',
@@ -38,7 +38,7 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
                         gap: '1rem',
                         boxShadow: 'var(--shadow-lg)'
                     }}>
-                        <div style={{
+                        <div className="address-display" style={{
                             background: 'var(--primary-soft)',
                             color: 'var(--primary)',
                             padding: '0.8rem 1.2rem',
@@ -53,7 +53,7 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
                             {isLoading ? '...' : address}
                         </div>
 
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <div className="generator-actions" style={{ display: 'flex', gap: '0.5rem' }}>
                             <button onClick={onRefresh} style={{
                                 width: '56px',
                                 height: '56px',
@@ -80,7 +80,7 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '3rem', marginTop: '1rem' }}>
+                <div className="badges-container" style={{ display: 'flex', gap: '3rem', marginTop: '1rem' }}>
                     <Badge Icon={Shield} text="Privacy Protected" />
                     <Badge Icon={Globe} text="Use Everywhere" />
                     <Badge Icon={ArrowRight} text="No Password Needed" />
@@ -111,7 +111,7 @@ export default function EmailGenerator({ address, isLoading, onRefresh }: EmailG
 
 function Badge({ Icon, text }: { Icon: any, text: string }) {
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600' }}>
+        <div className="badge-item" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600' }}>
             <Icon size={18} color="var(--primary)" />
             <span>{text}</span>
         </div>

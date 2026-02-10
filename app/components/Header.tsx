@@ -8,7 +8,7 @@ export default function Header() {
 
     return (
         <header className="animate-slide-down" style={{ padding: '2rem 0', marginBottom: '4rem' }}>
-            <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <nav className="header-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <div style={{
                         background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
@@ -29,19 +29,7 @@ export default function Header() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                    <div style={{
-                        display: 'none',
-                        '@media (minWidth: 768px)': { display: 'flex' },
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        background: 'var(--primary-soft)',
-                        padding: '0.5rem 1rem',
-                        borderRadius: '100px',
-                        fontSize: '0.85rem',
-                        fontWeight: '600',
-                        color: 'var(--primary)',
-                        border: '1px solid rgba(99, 102, 241, 0.1)'
-                    } as any}>
+                    <div className="badge-desktop-only">
                         <ShieldCheck size={16} />
                         <span>End-to-End Private</span>
                     </div>
@@ -63,11 +51,11 @@ export default function Header() {
                 </div>
             </nav>
 
-            <div style={{ textAlign: 'center', marginTop: '6rem' }}>
-                <h1 style={{ fontSize: '3.5rem', fontWeight: '900', letterSpacing: '-0.05em', lineHeight: '1.1', marginBottom: '1.5rem' }}>
+            <div className="header-top-spacer" style={{ textAlign: 'center', marginTop: '6rem' }}>
+                <h1 className="header-title-responsive" style={{ fontSize: '3.5rem', fontWeight: '900', letterSpacing: '-0.05em', lineHeight: '1.1', marginBottom: '1.5rem' }}>
                     Your Inbox, Without the <span style={{ color: 'var(--primary)' }}>Noise.</span>
                 </h1>
-                <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto', fontWeight: '500' }}>
+                <p className="header-subtitle" style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto', fontWeight: '500' }}>
                     Instantly generate disposable email addresses to keep your real inbox private and clean.
                 </p>
             </div>

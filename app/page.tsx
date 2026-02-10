@@ -62,7 +62,7 @@ export default function Home() {
 
         <Features />
 
-        <footer style={{
+        <footer className="footer-responsive" style={{
           marginTop: '8rem',
           padding: '4rem 0',
           borderTop: '1px solid var(--border)',
@@ -82,7 +82,7 @@ export default function Home() {
             A premium temporary email solution for modern developers and privacy advocates.
           </p>
 
-          <div style={{ display: 'flex', gap: '2rem' }}>
+          <div className="footer-links" style={{ display: 'flex', gap: '2rem' }}>
             <a href="#" style={{ color: 'var(--text-muted)', fontWeight: '600' }}>GitHub</a>
             <a href="#" style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Documentation</a>
             <a href="#" style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Privacy</a>
